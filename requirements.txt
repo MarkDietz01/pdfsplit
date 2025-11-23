@@ -1,4 +1,5 @@
 Flask==3.0.3
+# Pillow 10.3.0 heeft (nog) geen wielen voor Python 3.14; gebruik Python 3.12 of 3.11
 Pillow==10.3.0
 reportlab==4.1.0
 PyInstaller==6.9.0
