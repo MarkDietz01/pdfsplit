@@ -4,6 +4,8 @@ Een kleine Flask-app waarmee je één afbeelding kunt omzetten naar een poster d
 
 ## Installatie
 
+> Gebruik momenteel Python 3.12 (of 3.11). Nieuwere Python-versies zoals 3.14 hebben nog geen stabiele Pillow-builds, waardoor `pip install -r requirements.txt` kan mislukken.
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate
