@@ -27,13 +27,20 @@ def create_app() -> Flask:
             pages_across = request.form.get("pages_across", type=int, default=2)
             margin_mm = request.form.get("margin_mm", type=float, default=10.0)
             dpi = request.form.get("dpi", type=int, default=300)
+            orientation = request.form.get("orientation", default="portrait")
 
             if not file or file.filename == "":
                 flash("Upload eerst een afbeelding.")
                 return redirect(url_for("index"))
 
             try:
-                pdf_bytes = create_poster_pdf(file.stream, pages_across=pages_across, margin_mm=margin_mm, dpi=dpi)
+                pdf_bytes = create_poster_pdf(
+                    file.stream,
+                    pages_across=pages_across,
+                    margin_mm=margin_mm,
+                    dpi=dpi,
+                    orientation=orientation,
+                )
             except PosterizationError as exc:
                 flash(str(exc))
                 return redirect(url_for("index"))

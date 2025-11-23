@@ -7,79 +7,155 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
         color-scheme: light;
       }
+
       * {
         box-sizing: border-box;
       }
+
       body {
         margin: 0;
         font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-        background: linear-gradient(135deg, #0b1221 0%, #1f2a44 100%);
+        background: linear-gradient(140deg, #f5f7fb 0%, #e7ecf6 100%);
         min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 24px;
+        padding: 32px;
+        color: #0f172a;
       }
-      .card {
-        background: #0f172a;
-        color: #e2e8f0;
-        width: min(960px, 100%);
-        border-radius: 18px;
-        padding: 28px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+
+      .page {
+        max-width: 1200px;
+        margin: 0 auto;
       }
+
       .header {
         display: flex;
-        flex-direction: column;
-        gap: 6px;
-        margin-bottom: 20px;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+        color: #1f2937;
       }
+
       .title {
-        font-size: 26px;
         font-weight: 700;
-        color: #f8fafc;
+        font-size: 24px;
       }
+
       .subtitle {
-        color: #cbd5e1;
-        line-height: 1.5;
+        color: #4b5563;
       }
-      form {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 18px;
-        align-items: start;
+
+      .nav {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
       }
-      .panel {
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
-        padding: 16px;
-      }
-      label {
-        display: block;
+
+      .nav a {
+        color: #6b7280;
+        text-decoration: none;
         font-weight: 600;
-        margin-bottom: 8px;
+        padding: 8px 10px;
+        border-radius: 10px;
       }
+
+      .nav a.active {
+        color: #0ea5e9;
+        background: #e0f2fe;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 18px;
+      }
+
+      @media (max-width: 960px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 18px;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+        border: 1px solid #e5e7eb;
+      }
+
+      .steps {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+      }
+
+      .step {
+        padding: 8px 12px;
+        border-radius: 10px;
+        background: #f3f4f6;
+        color: #4b5563;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .step.active {
+        background: #0ea5e9;
+        color: white;
+      }
+
+      .section-title {
+        font-weight: 700;
+        margin: 12px 0 6px;
+      }
+
+      .section-subtitle {
+        color: #6b7280;
+        margin-bottom: 10px;
+      }
+
+      .panel {
+        padding: 14px;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        background: #f9fafb;
+        margin-bottom: 12px;
+      }
+
+      label {
+        font-weight: 700;
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .field-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+      }
+
       input[type='number'],
-      input[type='file'] {
+      input[type='file'],
+      select {
         width: 100%;
         padding: 10px 12px;
         border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background: rgba(255, 255, 255, 0.04);
-        color: #e2e8f0;
+        border: 1px solid #d1d5db;
         font-size: 15px;
+        background: white;
       }
+
       input[type='file']::file-selector-button {
-        background: #3b82f6;
+        background: #0ea5e9;
         border: none;
         color: #fff;
         padding: 8px 12px;
@@ -87,120 +163,499 @@
         margin-right: 12px;
         cursor: pointer;
       }
-      .help-text {
+
+      .slider-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      input[type='range'] {
+        flex: 1;
+      }
+
+      .muted {
+        color: #6b7280;
+        font-size: 14px;
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 10px;
+        margin-top: 8px;
+      }
+
+      .info-box {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 10px;
+      }
+
+      .info-label {
+        color: #6b7280;
         font-size: 13px;
-        color: #94a3b8;
+      }
+
+      .info-value {
+        font-weight: 700;
         margin-top: 4px;
       }
+
       .actions {
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 10px;
+        margin-top: 12px;
       }
+
       .button {
-        background: linear-gradient(90deg, #06b6d4, #3b82f6);
+        background: #0ea5e9;
         border: none;
-        color: #0b1221;
+        color: #fff;
         padding: 12px 18px;
         border-radius: 12px;
         font-weight: 700;
         font-size: 16px;
         cursor: pointer;
         transition: transform 120ms ease, box-shadow 120ms ease;
-        box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+        box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
       }
+
       .button:hover {
         transform: translateY(-1px);
-        box-shadow: 0 12px 26px rgba(59, 130, 246, 0.45);
       }
+
       .flash {
-        background: rgba(248, 113, 113, 0.1);
-        border: 1px solid rgba(248, 113, 113, 0.4);
-        color: #fecdd3;
-        padding: 12px 14px;
+        background: #fef2f2;
+        border: 1px solid #fecdd3;
+        color: #b91c1c;
+        padding: 10px 12px;
         border-radius: 10px;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
       }
-      .settings-grid {
+
+      .preview-card {
+        background: linear-gradient(160deg, #0ea5e9 0%, #0f172a 100%);
+        color: white;
+        border-radius: 16px;
+        padding: 18px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .preview-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .preview-title {
+        font-size: 20px;
+        font-weight: 700;
+      }
+
+      .chip {
+        background: rgba(255, 255, 255, 0.16);
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 13px;
+      }
+
+      .preview-stage {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 14px;
+        padding: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .preview-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 12px;
+        gap: 6px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.08));
+        border-radius: 12px;
+        padding: 10px;
+        min-height: 260px;
+        position: relative;
       }
+
+      .preview-tile {
+        background: rgba(255, 255, 255, 0.86);
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(15, 23, 42, 0.05);
+      }
+
+      .preview-tile img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.92;
+        display: block;
+      }
+
+      .preview-placeholder {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        color: rgba(15, 23, 42, 0.6);
+        font-size: 14px;
+      }
+
+      .preview-note {
+        margin-top: 10px;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 14px;
+      }
+
+      .badge-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+      }
+
       .badge {
+        background: white;
+        color: #0f172a;
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-weight: 700;
+        font-size: 13px;
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        padding: 6px 10px;
-        border-radius: 999px;
-        background: rgba(59, 130, 246, 0.14);
-        color: #bfdbfe;
-        font-weight: 600;
-        font-size: 13px;
       }
     </style>
   </head>
   <body>
-    <div class="card">
+    <div class="page">
       <div class="header">
-        <div class="badge">Poster-splitter</div>
-        <div class="title">Maak een printbare poster van je afbeelding</div>
-        <div class="subtitle">
-          Upload een afbeelding, kies hoeveel A4-pagina's naast elkaar moeten komen
-          en download direct een PDF die klaar is om te printen en samen te puzzelen.
+        <div>
+          <div class="title">Poster Splitter</div>
+          <div class="subtitle">Maak een grootse poster van je afbeelding, klaar voor print.</div>
         </div>
       </div>
 
-      {% with messages = get_flashed_messages() %}
-      {% if messages %}
-      {% for msg in messages %}
-      <div class="flash">{{ msg }}</div>
-      {% endfor %}
-      {% endif %}
-      {% endwith %}
+      <nav class="nav">
+        <a class="active" href="#">Home</a>
+        <a href="#">Over</a>
+        <a href="#">FAQ</a>
+        <a href="#">Stats</a>
+        <a href="#">Feedback</a>
+      </nav>
 
-      <form method="post" enctype="multipart/form-data">
-        <div class="panel">
-          <label for="image">Afbeelding</label>
-          <input id="image" name="image" type="file" accept="image/*" required />
-          <div class="help-text">Ondersteunt de meeste bestandsformaten, zoals PNG en JPG.</div>
+      <div class="layout">
+        <div class="card">
+          <div class="steps">
+            <div class="step active">1. Afbeelding</div>
+            <div class="step active">2. Formaat</div>
+            <div class="step">3. Stijl</div>
+            <div class="step">4. Opties</div>
+            <div class="step">5. Export</div>
+          </div>
+
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          {% for msg in messages %}
+          <div class="flash">{{ msg }}</div>
+          {% endfor %}
+          {% endif %}
+          {% endwith %}
+
+          <form method="post" enctype="multipart/form-data">
+            <div class="section-title">1. Upload je afbeelding</div>
+            <div class="section-subtitle">Ondersteunt PNG, JPG en de meeste andere formaten.</div>
+            <div class="panel">
+              <label for="image">Afbeelding</label>
+              <input id="image" name="image" type="file" accept="image/*" required />
+              <div class="muted">De afbeelding wordt enkel lokaal gebruikt om je poster samen te stellen.</div>
+            </div>
+
+            <div class="section-title">2. Grootte en papier</div>
+            <div class="section-subtitle">Kies het aantal pagina's naast elkaar en de marge.</div>
+            <div class="panel">
+              <div class="field-row">
+                <div>
+                  <label for="pages_across">Pagina's naast elkaar</label>
+                  <input
+                    id="pages_across"
+                    name="pages_across"
+                    type="number"
+                    min="1"
+                    step="1"
+                    value="2"
+                  />
+                  <div class="muted">Hoeveel A4-tjes in de breedte. De hoogte volgt automatisch.</div>
+                </div>
+                <div>
+                  <label for="orientation">Oriëntatie</label>
+                  <select id="orientation" name="orientation">
+                    <option value="portrait" selected>Staand (A4 210 × 297 mm)</option>
+                    <option value="landscape">Liggend (A4 297 × 210 mm)</option>
+                  </select>
+                  <div class="muted">Kies hoe de pagina's geprint worden.</div>
+                </div>
+                <div>
+                  <label for="dpi">Resolutie (DPI)</label>
+                  <input id="dpi" name="dpi" type="number" step="10" min="72" value="300" />
+                  <div class="muted">300 DPI is geschikt voor scherpe posters.</div>
+                </div>
+              </div>
+
+              <div class="field-row" style="margin-top: 10px;">
+                <div>
+                  <label for="margin_mm">Witte marge (mm)</label>
+                  <div class="slider-row">
+                    <input id="margin_mm" name="margin_mm" type="range" min="0" max="25" step="0.5" value="10" />
+                    <input id="margin_value" type="number" min="0" max="25" step="0.5" value="10" style="width: 90px;" />
+                  </div>
+                  <div class="muted">Ruimte rondom elk deel voor printers of knippen.</div>
+                </div>
+              </div>
+
+              <div class="info-grid">
+                <div class="info-box">
+                  <div class="info-label">Posterformaat (met marge)</div>
+                  <div class="info-value" id="size-with-margins">–</div>
+                </div>
+                <div class="info-box">
+                  <div class="info-label">Posterformaat (zonder marge)</div>
+                  <div class="info-value" id="size-without-margins">–</div>
+                </div>
+                <div class="info-box">
+                  <div class="info-label">Raster</div>
+                  <div class="info-value" id="grid-info">–</div>
+                </div>
+                <div class="info-box">
+                  <div class="info-label">Aantal pagina's</div>
+                  <div class="info-value" id="page-count">–</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-title">3. Opties</div>
+            <div class="section-subtitle">Pas de instellingen aan tot de poster klopt.</div>
+            <div class="panel">
+              <div class="muted">Klaar met tweaken? Klik op export om de PDF te maken.</div>
+            </div>
+
+            <div class="actions">
+              <div class="muted">Tip: gebruik 4 pagina's naast elkaar voor een poster van 8 A4's.</div>
+              <button class="button" type="submit">Genereer PDF</button>
+            </div>
+          </form>
         </div>
 
-        <div class="panel">
-          <div class="settings-grid">
+        <div class="preview-card">
+          <div class="preview-header">
             <div>
-              <label for="pages_across">Pagina's naast elkaar</label>
-              <input
-                id="pages_across"
-                name="pages_across"
-                type="number"
-                min="1"
-                step="1"
-                value="2"
-              />
-              <div class="help-text">Hoeveel A4-tjes in de breedte. De hoogte wordt automatisch bepaald.</div>
+              <div class="preview-title">Voorbeeld</div>
+              <div class="chip" id="preview-chip">Klaar voor export</div>
             </div>
-            <div>
-              <label for="margin_mm">Witte marge (mm)</label>
-              <input id="margin_mm" name="margin_mm" type="number" step="0.5" min="0" value="10" />
-              <div class="help-text">Ruimte rondom elk deel voor randloze printers of knippen.</div>
+            <div class="badge">Poster PDF</div>
+          </div>
+
+          <div class="preview-stage">
+            <div class="preview-grid" id="preview-grid">
+              <div class="preview-placeholder">Upload een afbeelding om de preview te zien</div>
             </div>
-            <div>
-              <label for="dpi">Resolutie (DPI)</label>
-              <input id="dpi" name="dpi" type="number" step="10" min="72" value="300" />
-              <div class="help-text">300 DPI is geschikt voor scherpe posters.</div>
+            <div class="preview-note" id="preview-note">
+              Afmetingen worden automatisch bijgewerkt zodra de afbeelding geladen is.
+            </div>
+            <div class="badge-row">
+              <div class="badge" id="badge-size">–</div>
+              <div class="badge" id="badge-print">–</div>
+              <div class="badge" id="badge-margin">–</div>
             </div>
           </div>
         </div>
-
-        <div class="actions">
-          <div class="help-text">
-            Tip: Kies bijvoorbeeld 4 pagina's naast elkaar voor een poster van 8 A4's (2 rijen).
-          </div>
-          <button class="button" type="submit">Genereer PDF</button>
-        </div>
-      </form>
+      </div>
     </div>
+
+    <script>
+      const fileInput = document.querySelector('#image');
+      const pagesAcrossInput = document.querySelector('#pages_across');
+      const marginRange = document.querySelector('#margin_mm');
+      const marginValue = document.querySelector('#margin_value');
+      const dpiInput = document.querySelector('#dpi');
+      const orientationInput = document.querySelector('#orientation');
+
+      const sizeWithMargins = document.querySelector('#size-with-margins');
+      const sizeWithoutMargins = document.querySelector('#size-without-margins');
+      const gridInfo = document.querySelector('#grid-info');
+      const pageCount = document.querySelector('#page-count');
+      const previewGrid = document.querySelector('#preview-grid');
+      const previewPlaceholder = document.createElement('div');
+      previewPlaceholder.className = 'preview-placeholder';
+      previewPlaceholder.textContent = 'Upload een afbeelding om de preview te zien';
+      const previewNote = document.querySelector('#preview-note');
+      const previewChip = document.querySelector('#preview-chip');
+      const badgeSize = document.querySelector('#badge-size');
+      const badgePrint = document.querySelector('#badge-print');
+      const badgeMargin = document.querySelector('#badge-margin');
+
+      let imageMeta = null;
+      let previewSrc = '';
+
+      function mmToInches(mm) {
+        return mm / 25.4;
+      }
+
+      function calculateLayout(meta) {
+        const pagesAcross = Math.max(1, parseInt(pagesAcrossInput.value || '1', 10));
+        const marginMm = Math.max(0, parseFloat(marginRange.value || '0'));
+        const dpi = Math.max(72, parseInt(dpiInput.value || '300', 10));
+        const orientation = orientationInput.value === 'landscape' ? 'landscape' : 'portrait';
+
+        const pageWidthMm = orientation === 'landscape' ? 297 : 210;
+        const pageHeightMm = orientation === 'landscape' ? 210 : 297;
+
+        const printableWidthMm = pageWidthMm - 2 * marginMm;
+        const printableHeightMm = pageHeightMm - 2 * marginMm;
+
+        if (printableWidthMm <= 0 || printableHeightMm <= 0) {
+          return {
+            error: 'Marge is te groot voor het gekozen papierformaat.',
+          };
+        }
+
+        const tileWidthPx = Math.round(mmToInches(printableWidthMm) * dpi);
+        const tileHeightPx = Math.round(mmToInches(printableHeightMm) * dpi);
+
+        const idealTotalWidthPx = tileWidthPx * pagesAcross;
+        const requiredTotalHeightPx = (idealTotalWidthPx * meta.height) / meta.width;
+        const rows = Math.max(1, Math.ceil(requiredTotalHeightPx / tileHeightPx));
+        const totalHeightPx = tileHeightPx * rows;
+
+        const posterWidthMm = pageWidthMm * pagesAcross;
+        const posterHeightMm = pageHeightMm * rows;
+        const printablePosterWidthMm = printableWidthMm * pagesAcross;
+        const printablePosterHeightMm = printableHeightMm * rows;
+
+        return {
+          rows,
+          cols: pagesAcross,
+          posterWidthMm,
+          posterHeightMm,
+          printablePosterWidthMm,
+          printablePosterHeightMm,
+          marginMm,
+          orientation,
+          pages: rows * pagesAcross,
+          note:
+            rows === 1
+              ? 'De afbeelding past op één rij. Pas de breedte aan voor een hogere poster.'
+              : 'Gebruik de raster-indeling om de delen netjes naast elkaar te plakken.',
+        };
+      }
+
+      function updatePreview() {
+        if (!imageMeta) {
+          previewGrid.innerHTML = '';
+          previewGrid.appendChild(previewPlaceholder);
+          sizeWithMargins.textContent = '–';
+          sizeWithoutMargins.textContent = '–';
+          gridInfo.textContent = '–';
+          pageCount.textContent = '–';
+          badgeSize.textContent = 'Wacht op afbeelding';
+          badgePrint.textContent = 'PDF na upload';
+          badgeMargin.textContent = `Marge ${marginRange.value} mm`;
+          previewNote.textContent = 'Upload eerst een afbeelding om het raster te berekenen.';
+          previewChip.textContent = 'Preview inactief';
+          return;
+        }
+
+        const layout = calculateLayout(imageMeta);
+        if (layout.error) {
+          sizeWithMargins.textContent = layout.error;
+          sizeWithoutMargins.textContent = layout.error;
+          gridInfo.textContent = '–';
+          pageCount.textContent = '–';
+          previewGrid.innerHTML = '';
+          const errorBox = document.createElement('div');
+          errorBox.className = 'preview-placeholder';
+          errorBox.textContent = layout.error;
+          previewGrid.appendChild(errorBox);
+          previewNote.textContent = 'Verlaag de marge om door te gaan.';
+          previewChip.textContent = 'Aanpassing nodig';
+          badgeSize.textContent = '—';
+          badgePrint.textContent = '—';
+          badgeMargin.textContent = `Marge ${layout.marginMm.toFixed(1)} mm`;
+          return;
+        }
+
+        const { rows, cols, posterWidthMm, posterHeightMm, printablePosterWidthMm, printablePosterHeightMm, pages, marginMm, orientation } = layout;
+
+        const toCm = (mm) => (mm / 10).toFixed(1);
+        sizeWithMargins.textContent = `${toCm(posterWidthMm)} × ${toCm(posterHeightMm)} cm`;
+        sizeWithoutMargins.textContent = `${toCm(printablePosterWidthMm)} × ${toCm(printablePosterHeightMm)} cm`;
+        gridInfo.textContent = `${cols} kolom/kolommen × ${rows} rij(en)`;
+        pageCount.textContent = `${cols} × ${rows} = ${pages} pagina's`;
+
+        previewGrid.innerHTML = '';
+        previewGrid.style.gridTemplateColumns = `repeat(${cols}, minmax(60px, 1fr))`;
+        previewGrid.style.gridTemplateRows = `repeat(${rows}, minmax(60px, 1fr))`;
+
+        for (let i = 0; i < rows * cols; i += 1) {
+          const tile = document.createElement('div');
+          tile.className = 'preview-tile';
+          if (previewSrc) {
+            const img = document.createElement('img');
+            img.src = previewSrc;
+            img.alt = 'Preview';
+            tile.appendChild(img);
+          }
+          previewGrid.appendChild(tile);
+        }
+
+        previewNote.textContent = layout.note;
+        previewChip.textContent = 'Klaar voor export';
+        badgeSize.textContent = `${cols} × ${rows} raster`;
+        badgePrint.textContent = `${pages} A4 (${orientation === 'portrait' ? 'staand' : 'liggend'})`;
+        badgeMargin.textContent = `Marge ${marginMm.toFixed(1)} mm`;
+      }
+
+      fileInput.addEventListener('change', (event) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            imageMeta = { width: img.naturalWidth, height: img.naturalHeight };
+            previewSrc = e.target?.result;
+            updatePreview();
+          };
+          img.src = e.target?.result;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      pagesAcrossInput.addEventListener('input', updatePreview);
+      marginRange.addEventListener('input', (e) => {
+        marginValue.value = e.target.value;
+        updatePreview();
+      });
+      marginValue.addEventListener('input', (e) => {
+        marginRange.value = e.target.value;
+        updatePreview();
+      });
+      dpiInput.addEventListener('input', updatePreview);
+      orientationInput.addEventListener('change', updatePreview);
+
+      updatePreview();
+    </script>
   </body>
 </html>
