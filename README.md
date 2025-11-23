@@ -35,4 +35,13 @@ Open daarna http://localhost:8000 en upload een afbeelding. Kies het aantal pagi
    ./build.cmd
    ```
 
-Het script controleert of Python 3.12 beschikbaar is, installeert het zo nodig via winget of de officiële installer, zet een geïsoleerde virtuele omgeving op en draait `PyInstaller` om `dist/poster-splitter.exe` te maken. Omdat de templates automatisch worden meegepakt via het build-script, kun je het `.exe`-bestand direct distribueren en uitvoeren op Windows. Let op: bouw op Windows om een Windows `.exe` te krijgen. Heb je liever PowerShell direct, dan kun je hetzelfde doen met `powershell -ExecutionPolicy Bypass -File build.ps1`.
+   > Wordt `build.cmd` tegengehouden door Smart App Control? Open PowerShell in deze map en voer één keer uit:
+   >
+   > ```powershell
+   > Unblock-File .\build.cmd, .\build.ps1
+   > powershell -ExecutionPolicy Bypass -File .\build.ps1
+   > ```
+   >
+   > Hiermee markeer je de scripts als vertrouwd en start je direct dezelfde build.
+
+Kort antwoord op “welk commando moet ik doen zodat alles wordt geïnstalleerd?”: voer `./build.cmd` uit in een Windows-terminal in deze map. Dat ene commando regelt de Python-versie (installeert 3.12 als die ontbreekt), maakt een virtuele omgeving aan, installeert alle vereisten en draait `PyInstaller` zodat `dist/poster-splitter.exe` klaarstaat. Heb je liever PowerShell direct, dan kun je hetzelfde doen met `powershell -ExecutionPolicy Bypass -File build.ps1`. Let op: bouw op Windows om een Windows `.exe` te krijgen.
