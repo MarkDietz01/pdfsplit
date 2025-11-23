@@ -32,7 +32,7 @@ Open daarna http://localhost:8000 en upload een afbeelding. Kies het aantal pagi
 3. Start de build met één commando dat automatisch Python 3.12 installeert (indien nodig) en de juiste versie gebruikt:
 
    ```powershell
-   powershell -ExecutionPolicy Bypass -File build.ps1
+   ./build.cmd
    ```
 
-Het script controleert of Python 3.12 beschikbaar is, installeert het zo nodig via winget of de officiële installer, zet een geïsoleerde virtuele omgeving op en draait `PyInstaller` om `dist/poster-splitter.exe` te maken. Omdat de templates automatisch worden meegepakt via het build-script, kun je het `.exe`-bestand direct distribueren en uitvoeren op Windows. Let op: bouw op Windows om een Windows `.exe` te krijgen.
+Het script controleert of Python 3.12 beschikbaar is, installeert het zo nodig via winget of de officiële installer, zet een geïsoleerde virtuele omgeving op en draait `PyInstaller` om `dist/poster-splitter.exe` te maken. Omdat de templates automatisch worden meegepakt via het build-script, kun je het `.exe`-bestand direct distribueren en uitvoeren op Windows. Let op: bouw op Windows om een Windows `.exe` te krijgen. Heb je liever PowerShell direct, dan kun je hetzelfde doen met `powershell -ExecutionPolicy Bypass -File build.ps1`.
