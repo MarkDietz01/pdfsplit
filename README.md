@@ -4,6 +4,8 @@ Een kleine Flask-app waarmee je één afbeelding kunt omzetten naar een poster d
 
 ## Installatie
 
+> Gebruik momenteel Python 3.12 (of 3.11). Nieuwere Python-versies zoals 3.14 hebben nog geen stabiele Pillow-builds, waardoor `pip install -r requirements.txt` kan mislukken.
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate
@@ -27,10 +29,19 @@ Open daarna http://localhost:8000 en upload een afbeelding. Kies het aantal pagi
    pip install -r requirements.txt
    ```
 
-3. Start de build:
+3. Start de build met één commando dat automatisch Python 3.12 installeert (indien nodig) en de juiste versie gebruikt:
 
-   ```bash
-   python build_exe.py
+   ```powershell
+   ./build.cmd
    ```
 
-PyInstaller maakt een map `dist/` met daarin `poster-splitter.exe`. Omdat de templates automatisch worden meegepakt via het build-script, kun je het `.exe`-bestand direct distribueren en uitvoeren op Windows. Let op: bouw op Windows om een Windows `.exe` te krijgen.
+   > Wordt `build.cmd` tegengehouden door Smart App Control? Open PowerShell in deze map en voer één keer uit:
+   >
+   > ```powershell
+   > Unblock-File .\build.cmd, .\build.ps1
+   > powershell -ExecutionPolicy Bypass -File .\build.ps1
+   > ```
+   >
+   > Hiermee markeer je de scripts als vertrouwd en start je direct dezelfde build.
+
+Kort antwoord op “welk commando moet ik doen zodat alles wordt geïnstalleerd?”: voer `./build.cmd` uit in een Windows-terminal in deze map. Dat ene commando regelt de Python-versie (installeert 3.12 als die ontbreekt), maakt een virtuele omgeving aan, installeert alle vereisten en draait `PyInstaller` zodat `dist/poster-splitter.exe` klaarstaat. Heb je liever PowerShell direct, dan kun je hetzelfde doen met `powershell -ExecutionPolicy Bypass -File build.ps1`. Let op: bouw op Windows om een Windows `.exe` te krijgen.

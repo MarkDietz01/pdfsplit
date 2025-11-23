@@ -3,7 +3,7 @@ import math
 from typing import List
 
 from PIL import Image
-from reportlab.lib.pagesizes import A4
+from reportlab.lib.pagesizes import A4, landscape
 from reportlab.lib.units import mm
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
@@ -21,8 +21,20 @@ def mm_to_inches(value_mm: float) -> float:
     return value_mm / 25.4
 
 
-def create_tiles(image: Image.Image, pages_across: int, margin_mm: float, dpi: int) -> List[Image.Image]:
-    page_width_mm, page_height_mm = 210, 297
+def get_page_size_mm(orientation: str) -> tuple[float, float]:
+    if orientation == "landscape":
+        return 297, 210
+    return 210, 297
+
+
+def create_tiles(
+    image: Image.Image,
+    pages_across: int,
+    margin_mm: float,
+    dpi: int,
+    orientation: str,
+) -> List[Image.Image]:
+    page_width_mm, page_height_mm = get_page_size_mm(orientation)
     printable_width_mm = page_width_mm - 2 * margin_mm
     printable_height_mm = page_height_mm - 2 * margin_mm
 
@@ -70,12 +82,15 @@ def create_tiles(image: Image.Image, pages_across: int, margin_mm: float, dpi: i
     return tiles
 
 
-def build_pdf_from_tiles(tiles: List[Image.Image], margin_mm: float, dpi: int) -> bytes:
+def build_pdf_from_tiles(
+    tiles: List[Image.Image], margin_mm: float, dpi: int, orientation: str
+) -> bytes:
     buffer = io.BytesIO()
-    page_width_pt, page_height_pt = A4
+    page_size = A4 if orientation == "portrait" else landscape(A4)
+    page_width_pt, page_height_pt = page_size
     margin_pt = mm_to_points(margin_mm)
 
-    pdf = canvas.Canvas(buffer, pagesize=A4)
+    pdf = canvas.Canvas(buffer, pagesize=page_size)
 
     for tile in tiles:
         tile_buffer = io.BytesIO()
@@ -108,7 +123,13 @@ def build_pdf_from_tiles(tiles: List[Image.Image], margin_mm: float, dpi: int) -
     return buffer.getvalue()
 
 
-def create_poster_pdf(image_file: io.BytesIO, pages_across: int, margin_mm: float, dpi: int = 300) -> bytes:
+def create_poster_pdf(
+    image_file: io.BytesIO,
+    pages_across: int,
+    margin_mm: float,
+    dpi: int = 300,
+    orientation: str = "portrait",
+) -> bytes:
     try:
         image = Image.open(image_file).convert("RGB")
     except Exception as exc:  # pylint: disable=broad-except
@@ -121,6 +142,15 @@ def create_poster_pdf(image_file: io.BytesIO, pages_across: int, margin_mm: floa
     if dpi < 72:
         raise PosterizationError("Kies een DPI van 72 of hoger voor een nette afdruk.")
 
-    tiles = create_tiles(image, pages_across=pages_across, margin_mm=margin_mm, dpi=dpi)
-    pdf_bytes = build_pdf_from_tiles(tiles, margin_mm=margin_mm, dpi=dpi)
+    if orientation not in {"portrait", "landscape"}:
+        raise PosterizationError("Kies een geldige pagina-oriëntatie.")
+
+    tiles = create_tiles(
+        image,
+        pages_across=pages_across,
+        margin_mm=margin_mm,
+        dpi=dpi,
+        orientation=orientation,
+    )
+    pdf_bytes = build_pdf_from_tiles(tiles, margin_mm=margin_mm, dpi=dpi, orientation=orientation)
     return pdf_bytes
